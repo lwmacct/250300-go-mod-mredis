@@ -18,7 +18,7 @@ type redisConf struct {
 
 type redisOpts func(*redisConf)
 
-func NewClient(url string, opts ...redisOpts) (*Redis, error) {
+func NewRedis(url string, opts ...redisOpts) (*Redis, error) {
 	if url == "" {
 		return nil, errors.New("url is required")
 	}
