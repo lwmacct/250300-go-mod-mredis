@@ -1,4 +1,4 @@
-module github.com/lwmacct/250300-go-mod-mkvc
+module github.com/lwmacct/250300-go-mod-mredis
 
 go 1.24.0
 

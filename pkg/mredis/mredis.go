@@ -1,4 +1,4 @@
-package mkvc
+package mredis
 
 import (
 	"context"
@@ -7,35 +7,24 @@ import (
 	asRedis "github.com/redis/go-redis/v9"
 )
 
-type Redis struct {
-	conf *redisConf
+type Client struct {
 	*asRedis.Client
 }
 
-type redisConf struct {
-	Url string
-}
+type clientOpts func(*Client)
 
-type redisOpts func(*redisConf)
-
-func NewRedis(url string, opts ...redisOpts) (*Redis, error) {
+func NewClient(url string, opts ...clientOpts) (*Client, error) {
+	t := &Client{}
 	if url == "" {
 		return nil, errors.New("url is required")
 	}
 
-	t := &Redis{
-		conf: &redisConf{
-			Url: url,
-		},
-	}
-
 	for _, opt := range opts {
-		opt(t.conf)
+		opt(t)
 	}
 
-	var err error
 	// 使用 url 解析
-	opt, err := asRedis.ParseURL(t.conf.Url)
+	opt, err := asRedis.ParseURL(url)
 	if err != nil {
 		return nil, err
 	}
