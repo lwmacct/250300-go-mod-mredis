@@ -2,6 +2,7 @@ package mredis
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 
 	asRedis "github.com/redis/go-redis/v9"
@@ -9,6 +10,17 @@ import (
 
 type Client struct {
 	*asRedis.Client
+}
+
+// JSONGetArray 获取 JSON 数据, []string
+func (t *Client) JSONGetArray(key string) []string {
+	ret := []string{}
+	val := t.JSONGet(context.Background(), key)
+	if val.Err() != nil {
+		return ret
+	}
+	json.Unmarshal([]byte(val.Val()), &ret)
+	return ret
 }
 
 type clientOpts func(*Client)
