@@ -9,7 +9,8 @@ import (
 )
 
 type Client struct {
-	Raw *asRedis.Client
+	Raw  *asRedis.Client
+	List *List
 }
 
 // JSONGetArray 获取 JSON 数据, []string
@@ -53,5 +54,6 @@ func NewClient(url string, opts ...clientOpts) (*Client, error) {
 		return nil, err
 	}
 	t.Raw = client
+	t.List = &List{Raw: client}
 	return t, nil
 }
