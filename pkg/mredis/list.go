@@ -8,7 +8,7 @@ import (
 )
 
 type List struct {
-	Raw *asRedis.Client
+	raw *asRedis.Client
 }
 
 // Ltrim 裁剪列表
@@ -24,7 +24,7 @@ func (t *List) Ltrim(ctx context.Context, keyName string, count int64) ([]string
 	`, trimCount, trimCount)
 
 	// 执行 Lua 脚本，获取值并裁剪列表
-	val, err := t.Raw.Eval(ctx, script, []string{keyName}, trimCount).Result()
+	val, err := t.raw.Eval(ctx, script, []string{keyName}, trimCount).Result()
 	if err != nil {
 		return nil, fmt.Errorf("failed to execute Lua script on key %s: %v", keyName, err)
 	}

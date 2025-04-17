@@ -54,6 +54,6 @@ func NewClient(url string, opts ...clientOpts) (*Client, error) {
 		return nil, err
 	}
 	t.Raw = client
-	t.List = &List{Raw: client}
+	t.List = &List{raw: client}
 	return t, nil
 }
