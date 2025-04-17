@@ -9,13 +9,13 @@ import (
 )
 
 type Client struct {
-	*asRedis.Client
+	Raw *asRedis.Client
 }
 
 // JSONGetArray 获取 JSON 数据, []string
 func (t *Client) JSONGetArray(key string) []string {
 	ret := []string{}
-	val := t.JSONGet(context.Background(), key)
+	val := t.Raw.JSONGet(context.Background(), key)
 	if val.Err() != nil {
 		return ret
 	}
@@ -52,6 +52,6 @@ func NewClient(url string, opts ...clientOpts) (*Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	t.Client = client
+	t.Raw = client
 	return t, nil
 }
