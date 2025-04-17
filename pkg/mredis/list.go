@@ -12,7 +12,7 @@ type List struct {
 }
 
 // Ltrim 裁剪列表
-func (t *List) Ltrim(ctx context.Context, keyName string, count int64) ([]string, error) {
+func (t *List) Ltrim(ctx context.Context, keyName string, count int) ([]string, error) {
 	// 计算 count-1，提前计算避免重复计算
 	trimCount := count - 1
 
