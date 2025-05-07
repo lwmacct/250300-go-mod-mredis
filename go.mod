@@ -2,7 +2,7 @@ module github.com/lwmacct/250300-go-mod-mredis
 
 go 1.24.0
 
-require github.com/redis/go-redis/v9 v9.7.3
+require github.com/redis/go-redis/v9 v9.8.0
 
 require (
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
